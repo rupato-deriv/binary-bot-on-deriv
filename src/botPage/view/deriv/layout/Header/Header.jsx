@@ -11,7 +11,7 @@ const MenuLinks = () => (
         <a className="url-reports-positions header__menu-links-item" href={generateDerivLink("reports/positions")}>
             <span>
                 <img className="header__icon-text reports-icon" src="image/deriv/ic-reports.svg" />
-                {translate("Reports")}
+                {translate("Reborts")}
             </span>
         </a>
         <a className="url-cashier-deposit header__menu-links-item" href={generateDerivLink("cashier/deposit")}>
