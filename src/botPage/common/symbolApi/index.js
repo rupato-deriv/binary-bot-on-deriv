@@ -40,27 +40,6 @@ const getCategoryForCondition = condition =>
         category => config.conditionsCategory[category].indexOf(condition.toLowerCase()) >= 0
     );
 
-function parameterExists(url, params_to_check) {
-    const queryString = url.split('?')[1];
-
-    if (!queryString) {
-        return false;
-    }
-
-    const urlParameters = queryString.split('&');
-
-    for (let i = 0; i < params_to_check.length; i++) {
-        for (let j = 0; j < urlParameters.length; j++) {
-            const [paramName] = urlParameters[j].split('=');
-            if (paramName === params_to_check[i]) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
 export default class _Symbol {
     constructor() {
         this.initPromise = new Promise(resolve => {
@@ -98,15 +77,13 @@ export default class _Symbol {
                 initialize();
             } else {
                 const url = window.location.href;
-                const params_to_check = ['l', 'lang'];
-                const check_param_exists = parameterExists(url, params_to_check);
                 const urlObject = new URL(url);
                 const queryParams = urlObject.searchParams;
                 const tokens_from_url = Array.from(queryParams.values());
+                const token_exist = new URLSearchParams(window.ocation.search).get('token');
 
-                if (check_param_exists && tokens_from_url.length > 1) {
+                if (token_exist) {
                     // Used when we have a token in the query param
-                    // and the query params are token or lang
                     initialize(tokens_from_url[1]);
                 } else {
                     // Used when the user logs out
