@@ -9,11 +9,13 @@ import trackjs_config from '../botPage/view/trackJs_config';
 import Routes from '../routes';
 import ActiveSymbols from '../botPage/common/symbolApi/activeSymbols';
 import { setActiveSymbols } from '../redux-store/client-slice';
+import NotFound from '../components/NotFound/NotFound';
 
 const App = () => {
     const dispatch = useDispatch();
     const has_active_symbols = useSelector(state => state.client.active_symbols);
     const has_logged_in = useSelector(state => state.client.is_logged);
+    const [is_symbols_loaded_from_socket, setActiveSymbolsLoaded] = React.useState(false);
 
     const initActiveSymbols = data => {
         symbolPromise.then(() => {
@@ -31,6 +33,7 @@ const App = () => {
         api_base.api.expectResponse('authorize').then(() =>
             api_base.getActiveSymbols().then(data => {
                 initActiveSymbols(data);
+                setActiveSymbolsLoaded(true);
             })
         );
 
@@ -55,7 +58,12 @@ const App = () => {
         cache: false,
     });
 
-    if (has_active_symbols.length === 0) return null;
+    if (has_active_symbols.length === 0) {
+        if (!is_symbols_loaded_from_socket) {
+            return null;
+        }
+        return <NotFound active_symbols_loaded={false} />;
+    }
 
     return <Routes />;
 };
