@@ -60,4 +60,5 @@ const NotFound = ({ active_symbols_loaded = true }) => {
 NotFound.propTypes = {
     active_symbols_loaded: PropTypes.bool,
 };
+
 export default NotFound;
