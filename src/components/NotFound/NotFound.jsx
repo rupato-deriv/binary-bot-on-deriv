@@ -18,7 +18,7 @@ Wrapper.propTypes = {
     content: PropTypes.string,
 };
 
-const PageNotFound = () => (
+const PageNotLoaded = () => (
     <p>
         <span>{translate('Click')}</span>
         <span>
@@ -28,7 +28,7 @@ const PageNotFound = () => (
     </p>
 );
 
-const PageDoesNotExist = () => (
+const PageNotFound = () => (
     <p>
         <span>{translate('Are you lost? Click ')}</span>{' '}
         <Link to='/'>
@@ -46,13 +46,13 @@ const NotFound = ({ active_symbols_loaded = true }) => {
     if (!active_symbols_loaded) {
         return (
             <Wrapper content={translate('Something went wrong')}>
-                <PageNotFound />
+                <PageNotLoaded />
             </Wrapper>
         );
     }
     return (
         <Wrapper content={translate('The page you are looking for does not exist.')}>
-            <PageDoesNotExist />
+            <PageNotFound />
         </Wrapper>
     );
 };
